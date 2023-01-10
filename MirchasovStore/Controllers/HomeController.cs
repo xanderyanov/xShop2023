@@ -10,10 +10,11 @@ namespace MirchasovStore.Controllers
 
         public int PageSize = 12;
 
-        public IActionResult Index(int productPage = 1)
+        public IActionResult Index(string? category, int productPage = 1)
         {
             return View(new ProductsListViewModel {
                 Products = Data.ExistingTovars
+                    .Where(p => category == null || p.BrandName == category)
                     .OrderBy(p => p.Article)
                     .Skip((productPage - 1) * PageSize)
                     .Take(PageSize),
@@ -22,7 +23,8 @@ namespace MirchasovStore.Controllers
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
                     TotalItems = Data.ExistingTovars.Count()
-                }
+                },
+                CurrentCategory = category
 
             });
         }
