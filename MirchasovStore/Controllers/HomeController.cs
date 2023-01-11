@@ -22,7 +22,11 @@ namespace MirchasovStore.Controllers
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = Data.ExistingTovars.Count()
+                    //TotalItems = Data.ExistingTovars.Count()
+                    TotalItems = category == null
+                         ? Data.ExistingTovars.Count()
+                        : Data.ExistingTovars.Where(e =>
+                         e.BrandName == category).Count()
                 },
                 CurrentCategory = category
 

@@ -1,0 +1,4 @@
+﻿@model IEnumerable<string>@*<div class="catalog__side">    <ul class="leftMenu">        <li class="first"><a href="/">Главная</a></li>        @foreach (string category in Model)
+        {
+            string url = "/Catalog/Brand/" + category;            <li class="@(category == ViewBag.SelectedCategory? "active": "")"><a href="@url">@category</a></li>        }    </ul></div>*@<div class="d-grid gap-2">    <a class="btn btn-outline-secondary" asp-action="Index"       asp-controller="Home" asp-route-category="">        Главная    </a>    @foreach (string category in Model ?? Enumerable.Empty<string>())
+    {        <a class="btn btn-outline-secondary"           asp-action="Index" asp-controller="Home"           asp-route-category="@category"           asp-route-productPage="1">@category</a>    }</div>

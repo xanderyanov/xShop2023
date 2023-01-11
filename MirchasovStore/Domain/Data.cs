@@ -16,7 +16,9 @@ public static class Data
 
     public static List<Product> ExistingTovars;
 
+    public static List<string> Razdels;
     public static List<string> Categories;
+    public static List<List<string>> Tree;
 
     public static List<string> Levels;
 
@@ -33,7 +35,14 @@ public static class Data
         //Каталог и все такое
         productsCollection = DB.GetCollection<Product>("products");
         ExistingTovars = GetAllProducts();
-        Categories = ExistingTovars.Select(x => x.CatLev[2]).Distinct().OrderBy(x => x).ToList();
+        Categories = ExistingTovars.Select(x => x.CatLev[2]).Distinct().OrderBy(x => x).ToList();       //Категории через уровни иерархии
+        //Categories = ExistingTovars.Select(x => x.CatLev[1]).Distinct().OrderBy(x => x).ToList();       //Разделы через уровни иерархии
+        //Razdels = ExistingTovars.Select(x => x.CatLev[1]).Distinct().OrderBy(x => x).ToList();       //Разделы через уровни иерархии
+        //Categories = ExistingTovars.Select(x => x.BrandName).Distinct().OrderBy(x => x).ToList();         //Категории через Бренды 
+
+
+
+
 
     }
 
