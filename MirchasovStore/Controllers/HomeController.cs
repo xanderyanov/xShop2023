@@ -8,7 +8,7 @@ namespace MirchasovStore.Controllers
     public class HomeController : BaseController
     {
 
-        public int PageSize = 12;
+        public int PageSize = 20;
 
         public IActionResult Index(string? category, int productPage = 1)
         {

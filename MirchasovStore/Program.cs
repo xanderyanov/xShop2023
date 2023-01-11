@@ -13,11 +13,16 @@ Data.InitData(builder.Configuration);
 
 //Data.ImportCSV();     //Обновление товаров
 
+builder.Services.AddRazorPages();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 //app.MapGet("/", () => "Hello World!");
 
 app.UseStaticFiles();
+app.UseSession();
 
 //стр 170  Improving  the URLs
 //app.MapControllerRoute("pagination",
@@ -39,5 +44,6 @@ app.MapControllerRoute("pagination",
 
 app.MapDefaultControllerRoute();
 
+app.MapRazorPages();
 
 app.Run();
