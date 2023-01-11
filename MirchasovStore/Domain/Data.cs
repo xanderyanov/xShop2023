@@ -41,6 +41,9 @@ public static class Data
         //Categories = ExistingTovars.Select(x => x.BrandName).Distinct().OrderBy(x => x).ToList();         //Категории через Бренды 
 
 
+        var group1 = ExistingTovars.GroupBy(p => p.CatLev[2]).ToList();
+        var group2 = ExistingTovars.GroupBy(p => p.BrandName);
+
 
 
 
