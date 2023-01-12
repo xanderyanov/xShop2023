@@ -40,9 +40,44 @@ public static class Data
         //Razdels = ExistingTovars.Select(x => x.CatLev[1]).Distinct().OrderBy(x => x).ToList();       //Разделы через уровни иерархии
         //Categories = ExistingTovars.Select(x => x.BrandName).Distinct().OrderBy(x => x).ToList();         //Категории через Бренды 
 
+        foreach (var t in ExistingTovars)
+        {
+            t.PathParts = new List<string>();
+            t.PathParts.AddRange(t.CatLev);
+        }
 
-        var group1 = ExistingTovars.GroupBy(p => p.CatLev[2]).ToList();
-        var group2 = ExistingTovars.GroupBy(p => p.BrandName);
+        Category root = new();
+
+        void CreateLevel(Category cat, List<Product> products)
+        {
+            for (int i = 0; i < products.Count;) {
+                var p = products[i];
+                if (p.PathParts.Count == 0)
+                {
+                    cat.Products.Add(p);
+                    products.RemoveAt(i);
+                } else {
+                    i++;
+                }
+            }
+
+            var groups = products.GroupBy(x => x.PathParts[0]);
+
+            foreach (var g in groups)
+            {
+                var subCat = new Category() { Name = g.Key };
+                var products2 = g.ToList();
+                foreach (var p in products2) p.PathParts.RemoveAt(0);
+                CreateLevel(subCat, products2);
+                cat.Children.Add(subCat);
+            }
+        }
+        
+        CreateLevel(root, ExistingTovars);
+
+
+        //var group1 = ExistingTovars.GroupBy(p => p.CatLev[2]).ToList();
+        //var group2 = ExistingTovars.GroupBy(p => p.BrandName);
 
 
 

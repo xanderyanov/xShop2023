@@ -1,15 +1,20 @@
-﻿namespace MirchasovStore.Models
+﻿using MongoDB.Bson;
+
+namespace MirchasovStore.Models
 {
     public class Category
     {
-        public string Id { get; set; }
+        public ObjectId Id { get; set; }
 
         public string Name { get; set; }
 
-        public string ParentId { get; set; }
+        public Category Parent { get; set; }
+        public ObjectId ParentId { get; set; }
 
-        public List<Category> Children { get; set; }
+        public List<Category> Children { get; set; } = new();
 
-        public bool HasChildren { get; set; }
+        public bool HasChildren => Children.Count > 0;
+
+        public List<Product> Products { get; set; } = new();
     }
 }

@@ -7,6 +7,8 @@ namespace MirchasovStore.Models
     [BsonIgnoreExtraElements]  //если какого-то поля нет - не выведет ошибку а проигнорирует
     public class Product
     {
+        internal List<string> PathParts;
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
