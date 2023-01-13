@@ -10,12 +10,20 @@ namespace MirchasovStore.Controllers
 
         public int PageSize = 20;
 
-        public IActionResult Index(string? category, int productPage = 1)
+        public IActionResult Index(string category, int productPage = 1)
         {
+            var cat = Data.menuTree.Find(category);
+
+            var products = new List<Product>(1024);
+            cat.GetAllProducts(products);
+
+
+
             return View(new ProductsListViewModel
             {
-                Products = Data.ExistingTovars
-                    .Where(p => category == null || p.BrandName == category)
+                CurrentCat = cat,
+                Products = products
+                    //.Where(p => category == null || p.BrandName == category)
                     .OrderBy(p => p.Article)
                     .Skip((productPage - 1) * PageSize)
                     .Take(PageSize),
@@ -24,14 +32,37 @@ namespace MirchasovStore.Controllers
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
                     //TotalItems = Data.ExistingTovars.Count()
-                    TotalItems = category == null
-                         ? Data.ExistingTovars.Count()
-                        : Data.ExistingTovars.Where(e =>
-                         e.BrandName == category).Count()
-                },
-                CurrentCategory = category
-
+                    TotalItems = products.Count() //category == null
+                         //? products.Count()
+                        //: products
+                        //.Where(e => e.BrandName == category)
+                        //.Count()
+                }
+                //,
+                //CurrentCategory = category
             });
+
+
+            //return View(new Category
+            //{
+            //    Products = products
+            //        .Where(p => category == null || p.BrandName == category)
+            //        .OrderBy(p => p.Article)
+            //        .Skip((productPage - 1) * PageSize)
+            //        .Take(PageSize),
+            //    PagingInfo = new PagingInfo
+            //    {
+            //        CurrentPage = productPage,
+            //        ItemsPerPage = PageSize,
+            //        //TotalItems = Data.ExistingTovars.Count()
+            //        TotalItems = category == null
+            //             ? Data.menuTree.Products.Count()
+            //            : Data.menuTree.Products.Where(e =>
+            //             e.BrandName == category).Count()
+            //    },
+            //    //CurrentCategory = category
+
+            //});
         }
     }
 

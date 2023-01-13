@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using MirchasovStore.Models.ViewModels;
+using MongoDB.Bson;
 
 namespace MirchasovStore.Models
 {
@@ -15,6 +16,27 @@ namespace MirchasovStore.Models
 
         public bool HasChildren => Children.Count > 0;
 
+        public string CurrentCategory { get; set; }
+
         public List<Product> Products { get; set; } = new();
+
+        internal Category Find(string category)
+        {
+            if (category == null) return this;
+
+            if (Name == category) return this;
+            foreach (var child in Children)
+            {
+                var r = child.Find(category);
+                if (r != null) return r;
+            }
+            return null;
+        }
+
+        public void GetAllProducts(List<Product> products)
+        {
+            products.AddRange(Products);
+            foreach (var child in Children) child.GetAllProducts(products);
+        }
     }
 }
