@@ -1,13 +1,11 @@
 ﻿@model Category@functions {    public void dumpMenu(Category category)
     {
         <ul>            @foreach (Category child in category.Children)
-            {                //<a class="btn btn-outline-secondary">@child.Name</a>                <li>                    <a class="btn @(category == ViewBag.SelectedCategory ? "btn-primary": "btn-outline-secondary")" href="/@child.Name">@child.Name</a>                    @*@if (child.Products.Count != 0)
+            {                //<a class="btn btn-outline-secondary">@child.Name</a>                <li>                    <a class="btn @(child.Name == ViewBag.SelectedCategory ? "btn-primary": "btn-outline-secondary")" href="/@child.Name">@child.Name</a>                    @*@if (child.Products.Count != 0)
                     {
                         foreach (var p in child.Products)
                         {                             <p>@p.Name</p>                        }                    }*@                    @if (category.HasChildren){
                         dumpMenu(child);                    }                </li>            }        </ul>    }}<div class="d-grid gap-2">    <ul>        <li>            <a class="btn btn-outline-secondary" asp-action="Index"               asp-controller="Home" asp-route-category="">                Главная            </a>            <ul>                @foreach (var category in Model.Children)
-                {                    <a class="btn btn-outline-secondary"                       href="/@category.Name">@category.Name</a>
-
-                    if (category.HasChildren)
+                {                    <a class="btn @(category.Name == ViewBag.SelectedCategory ? "btn-primary": "btn-outline-secondary")" href="/@category.Name">@category.Name</a>                    if (category.HasChildren)
                     {                        dumpMenu(category);
                     }                }            </ul>        </li>    </ul></div>

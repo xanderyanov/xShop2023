@@ -7,7 +7,7 @@ namespace MirchasovStore.Components
     {
         public IViewComponentResult Invoke()
         {
-            ViewBag.SelectedCategory = RouteData?.Values["id"];
+            ViewBag.SelectedCategory = RouteData?.Values["category"];
 
             //foreach (var path in Data.root.Children) { 
                 

@@ -13,8 +13,6 @@ public class ProductsListViewModel
     public PagingInfo PagingInfo { get; set; }
     //public string CurrentCategory { get; set; }
 
-
-
     public ViewSettingsClass ViewSettings { get; set; }
 }
 
