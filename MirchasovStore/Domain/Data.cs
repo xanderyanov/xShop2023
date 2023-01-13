@@ -24,6 +24,8 @@ public static class Data
 
     public static IMongoCollection<Product> productsCollection;
 
+    public static Category menuTree;
+
 
     public static void InitData(IConfiguration Configuration)
     {
@@ -76,10 +78,10 @@ public static class Data
         CreateLevel(root, ExistingTovars);
 
 
-        //var group1 = ExistingTovars.GroupBy(p => p.CatLev[2]).ToList();
+        var group1 = ExistingTovars.GroupBy(p => p.CatLev[2]).ToList();
         //var group2 = ExistingTovars.GroupBy(p => p.BrandName);
 
-
+        menuTree = root;
 
 
     }

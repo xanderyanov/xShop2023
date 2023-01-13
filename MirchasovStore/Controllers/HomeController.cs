@@ -12,7 +12,8 @@ namespace MirchasovStore.Controllers
 
         public IActionResult Index(string? category, int productPage = 1)
         {
-            return View(new ProductsListViewModel {
+            return View(new ProductsListViewModel
+            {
                 Products = Data.ExistingTovars
                     .Where(p => category == null || p.BrandName == category)
                     .OrderBy(p => p.Article)

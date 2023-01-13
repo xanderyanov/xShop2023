@@ -9,19 +9,10 @@ namespace MirchasovStore.Components
         {
             ViewBag.SelectedCategory = RouteData?.Values["id"];
 
-            foreach (var path in Data.Razdels) { 
-                var punkt = path.Split('/').ToList();
-            }
-
-
-
-
-
-
-
-
-
-            return View(Data.Razdels);
+            //foreach (var path in Data.root.Children) { 
+                
+            //}
+            return View(Data.menuTree);
         }
     }
 }

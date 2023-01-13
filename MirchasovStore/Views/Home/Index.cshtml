@@ -1,6 +1,13 @@
 ﻿@model ProductsListViewModel
 
-@foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
+<h1>@Model.CurrentCategory</h1>
+
+@*@foreach (var p in Model?.Categories)
+{
+    <p>@p.Name</p>
+}*@
+
+@foreach (var p in Model.Products)
 {
     <partial name="ProductSummary" model="p" />
 }
